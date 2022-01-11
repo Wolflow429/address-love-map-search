@@ -37,9 +37,11 @@ const homeItemSelectors = {
     headless: false,
     defaultViewport: null
   })
+
   const page = await browser.newPage()
 
   // login
+  console.log('Logging in')
   await page.goto(variables.domainUrl + variables.loginPath)
   await page.type('#user_email', variables.username)
   await page.type('#user_password', variables.password)
@@ -47,98 +49,93 @@ const homeItemSelectors = {
     document.querySelector('input[name="commit"]').click()
   )
   await page.waitForNavigation()
+  console.log('Logged in')
 
-  // check if we already scraped
-  let homesJson
-  fs.readFile('homes.json', 'utf8', (err, data) => {
-    if (err) {
-      console.log('An error occurred so we will re-scrape homes :x', err)
-      // throw err;
+  // scrape home cards
+  console.log(`Scraping all homes pages`)
+  let currentPage = 0,
+    homesPages = [],
+    scrapedAllPages = false
+  do {
+    currentPage++
+    const homesPageUrl = `${variables.domainUrl}${variables.homesPath}?page=${currentPage}`
+    await page.goto(homesPageUrl)
+    const pageContent = await page.content()
+    const $ = cheerio.load(pageContent)
+
+    scrapedAllPages = $('p.title').text() === '家が見つかりませんでした'
+    if (scrapedAllPages) {
+      console.log(`Done scraping all homes pages`)
     } else {
-      console.log('Loading homes.json from files :)')
-      homesJson = JSON.parse(data)
+      homesPages.push(pageContent)
+      console.log(`Done scraping homes page ${currentPage}`)
     }
-  })
+  } while (!scrapedAllPages)
 
-  await page.waitForTimeout(4000) // small delay to wait for file to load
-
-  if (!homesJson) {
-    // scrape home cards
-    let currentPage = 0,
-      homesPages = [],
-      scrapedAllPages = false
-    do {
-      currentPage++
-      const homesPageUrl = `${variables.domainUrl}${variables.homesPath}?page=${currentPage}`
-      await page.goto(homesPageUrl)
-      const pageContent = await page.content()
-      const $ = cheerio.load(pageContent)
-
-      scrapedAllPages = $('p.title').text() === '家が見つかりませんでした'
-      if (scrapedAllPages) {
-        console.log(`Done scraping all homes pages`)
-      } else {
-        homesPages.push(pageContent)
-        console.log(`Done scraping homes page ${currentPage}`)
+  // parse home cards
+  console.log('Parsing all home cards')
+  const homesJson = homesPages.reduce((parsedHomesJson, currentPage) => {
+    const $ = cheerio.load(currentPage)
+    const homeCards = $(homeCardSelectors.card)
+    for (const homeCard of homeCards) {
+      const urlPath = $(homeCard).find('a').attr('href')
+      const homeJson = {
+        id: urlPath.split('homes/')[1],
+        urlPath: urlPath,
+        title: $(homeCard).find(homeCardSelectors.title).text(),
+        prefecture: $(homeCard).find(homeCardSelectors.prefecture).text(),
+        description: $(homeCard)
+          .find(homeCardSelectors.description)
+          .text()
+          .trim(),
+        isNew: $(homeCard).find(homeCardSelectors.new).text() === 'NEW'
+        // imageUrl: $(homeCard).find(homeCardSelectors.image).attr("src"),
       }
-    } while (!scrapedAllPages)
-
-    // parse home cards
-    homesJson = homesPages.reduce((parsedHomesJson, currentPage) => {
-      const $ = cheerio.load(currentPage)
-      const homeCards = $(homeCardSelectors.card)
-      for (const homeCard of homeCards) {
-        const urlPath = $(homeCard).find('a').attr('href')
-        const homeJson = {
-          id: urlPath.split('homes/')[1],
-          urlPath: urlPath,
-          title: $(homeCard).find(homeCardSelectors.title).text(),
-          prefecture: $(homeCard).find(homeCardSelectors.prefecture).text(),
-          description: $(homeCard)
-            .find(homeCardSelectors.description)
-            .text()
-            .trim(),
-          isNew: $(homeCard).find(homeCardSelectors.new).text() === 'NEW'
-          // imageUrl: $(homeCard).find(homeCardSelectors.image).attr("src"),
-        }
-        parsedHomesJson.push(homeJson)
-      }
-      return parsedHomesJson
-    }, [])
-
-    console.log('Saving homes.json')
-    fs.writeFileSync('homes.json', JSON.stringify(homesJson))
-  }
+      parsedHomesJson.push(homeJson)
+    }
+    return parsedHomesJson
+  }, [])
+  console.log('Parsed all home cards')
 
   // scrape home items
+  console.log('Scraping all home items')
   const homeItemsJson = []
   for (const homeCard of homesJson) {
-    console.log(`Starting scraping home ${homeCard.title} with id ${homeCard.id}`)
+    console.log(
+      `Starting scraping home ${homeCard.title} with id ${homeCard.id}`
+    )
     const homeItemUrl = `${variables.domainUrl}${homeCard.urlPath.substring(1)}`
     await page.goto(homeItemUrl)
     const pageContent = await page.content()
     const $ = cheerio.load(pageContent)
-    const locationUrl = $(homeItemSelectors.locationLink).attr('href');
+    const locationUrl = $(homeItemSelectors.locationLink).attr('href')
     const homeItemJson = Object.assign(homeCard, {
       name: $(homeItemSelectors.name).text(),
       tag: $(homeItemSelectors.tag).text(),
-      address: $(homeItemSelectors.address).text().replace('GoogleMap', '').trim(),
+      address: $(homeItemSelectors.address)
+        .text()
+        .replace('GoogleMap', '')
+        .trim(),
       location: {
         url: locationUrl,
         latitude: parseFloat(locationUrl.split('?q=')[1].split(',')[0]),
-        longitude: parseFloat(locationUrl.split('?q=')[1].split(',')[1]),
-      },
-    });
-    homeItemsJson.push(homeItemJson);
+        longitude: parseFloat(locationUrl.split('?q=')[1].split(',')[1])
+      }
+    })
+    homeItemsJson.push(homeItemJson)
     console.log(`Done scraping home ${homeCard.title} with id ${homeCard.id}`)
   }
+  console.log('Scraped all home items')
 
-  console.log('Saving homes-with-location.json')
-  fs.writeFileSync('homes-with-location.json', JSON.stringify(homesJson))
+  console.log('Saving homes.json')
+  fs.writeFileSync('homes.json', JSON.stringify(homesJson, null, 2))
 
   // logout
+  console.log('Logging out')
   await page.evaluate(() => document.querySelector('a[href="/logout"]').click())
+  console.log('Logged out')
 
   // exit
+  console.log('Exiting scraper')
   await browser.close()
 })()
