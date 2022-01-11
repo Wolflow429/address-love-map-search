@@ -7,10 +7,10 @@ require('dotenv').config()
 const variables = {
   username: process.env.USERNAME,
   password: process.env.PASSWORD,
-  domainUrl: process.env.DOMAIN_URL,
-  homesPath: process.env.HOMES_PATH,
-  loginPath: process.env.LOGIN_PATH,
-  logoutPath: process.env.LOGOUT_PATH
+  domainUrl: 'https://home.address.love/',
+  homesPath: 'homes',
+  loginPath: 'login',
+  logoutPath: 'logout'
 }
 
 const homeCardSelectors = {
