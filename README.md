@@ -4,20 +4,42 @@ A way to visually browse address.love homes using google maps
 
 # How to use
 
-Clone the repository and run the following
+First and foremost download the repository, make sure you're using node version `17.2.0` and run `npm install`
+
+### Scraping the information of homes
+
+Run `node scraper.js`
+
+Wait a few minutes and all the information regarding homes will be stored under `homes.json` along with the logs below
 
 ```
-$ nvm use
-$ npm install
-$ node scraper.js
+Logging in
+Logged in
+Scraping all homes pages
+Done scraping homes page 1
+...
+Done scraping all homes pages
+Parsing all home cards
+Parsed all home cards
+Scraping all home items
+Starting scraping home 松本A邸 with id 272
+Done scraping home 松本A邸 with id 272
+...
+Scraped all home items
+Saving homes.json
+Logging out
+Logged out
+Exiting scraper
 ```
 
-Wait a few minutes and all the information regarding homes will be stored under `homes-with-location.json`. You can ignore `homes.json` file for now.
+### Visualizing the homes on a map
+
+Run `npm run dev` and access `localhost:3000/map/address`
 
 # Roadmap
 
 ✅ Fetch and store names, coordinates and basic information of each home
-📝 Plot all homes on a map
+✅ Plot all homes on a map
 📝 Fetch and store rooms and their availability
 📝 Introduce search features
      - Search by room availability
