@@ -38,9 +38,9 @@ Run `npm run dev` and access `localhost:3000/map/address`
 
 # Roadmap
 
-✅ Fetch and store names, coordinates and basic information of each home
-✅ Plot all homes on a map
-📝 Fetch and store rooms and their availability
-📝 Introduce search features
-     - Search by room availability
-     - Search by room desired trajectory
+✅ Fetch and store names, coordinates and basic information of each home<br/>
+✅ Plot all homes on a map<br/>
+📝 Fetch and store rooms and their availability<br/>
+📝 Introduce search features<br/>
+- Search by room availability
+- Search by room desired trajectory
