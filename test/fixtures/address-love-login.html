@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<!-- saved from url=(0014)about:internet -->
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>ログイン | ADDressの家検索・予約サイト</title>
+
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta
+      name="description"
+      content="定額4.4万円(税込)で全国200箇所の拠点に住み放題！こだわりの条件で家やお部屋を検索して予約できます。日本の豊かな自然、古民家や地域の良さに触れながら好きな時に、好きな場所で、好きな暮らしを楽しもう。"
+    />
+    <meta name="csrf-param" content="authenticity_token" />
+    <meta
+      name="csrf-token"
+      content="M-SjIdO-EmltjQcHoT1ffPt_dyZiI9fPVgwV0Y9vNMDN4pzKdz93Vztoht0LFMRU4MC9Xg_X_KKfFf8JuBSKfw"
+    />
+    <meta name="csp-nonce" />
+
+    <link
+      href="./address-love-login_files/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+      crossorigin="anonymous"
+    />
+
+    <link
+      rel="apple-touch-icon"
+      sizes="152x152"
+      href="https://cdn.address.love/favicons/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="https://cdn.address.love/favicons/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="https://cdn.address.love/favicons/favicon-16x16.png"
+    />
+    <link
+      rel="manifest"
+      href="https://cdn.address.love/favicons/site.webmanifest"
+    />
+    <link
+      rel="mask-icon"
+      href="https://cdn.address.love/favicons/safari-pinned-tab.svg"
+      color="#f6eedf"
+    />
+    <meta name="msapplication-TileColor" content="#603cba" />
+    <meta name="theme-color" content="#f6eedf" />
+
+    <link
+      rel="stylesheet"
+      media="all"
+      href="./address-love-login_files/application-0a64bfcc.chunk.css"
+      data-turbolinks-track="reload"
+    />
+    <link
+      rel="stylesheet"
+      media="all"
+      href="./address-love-login_files/application-ef1434fe.chunk.css"
+      data-turbolinks-track="reload"
+    />
+  </head>
+  <body>
+    <header id="header_nav" class="header sticky-top">
+      <div class="header-inner flex">
+        <div class="header-logo">
+          <a
+            class="header-logo-link"
+            href="https://home.address.love/"
+            target="_self"
+          >
+            <img
+              src="./address-love-login_files/ADDress_logo-d1891753ad44517d325cbc66ec29fa6b.svg"
+            />
+          </a>
+        </div>
+        <div class="header-menu">
+          <ul class="header-menu-list flex">
+            <li>
+              <a
+                class="header-menu-item"
+                href="https://home.address.love/favorites"
+                target="_self"
+              >
+              </a>
+            </li>
+            <li>
+              <a
+                class="header-menu-item"
+                href="https://home.address.love/reservations"
+                target="_self"
+              >
+              </a>
+            </li>
+            <li>
+              <div>
+                <button type="button" class="header-menu-item">
+                  <div class="header-menu-item-btn">
+                    <span></span> <span></span> <span></span>
+                  </div>
+                </button>
+                <div class="header-menu-nav" style="display: none">
+                  <nav>
+                    <ul class="header-menu-nav-list">
+                      <li class="header-menu-nav-item">
+                        <a
+                          href="https://home.address.love/"
+                          class="header-menu-nav-link"
+                        >
+                          ホーム
+                        </a>
+                      </li>
+                      <li class="header-menu-nav-item">
+                        <a
+                          href="https://home.address.love/register"
+                          class="header-menu-nav-link"
+                        >
+                          メール会員登録（無料）
+                        </a>
+                      </li>
+                      <li class="header-menu-nav-item">
+                        <a
+                          href="https://home.address.love/login"
+                          class="header-menu-nav-link"
+                        >
+                          ログイン
+                        </a>
+                      </li>
+                      <li class="header-menu-nav-item">
+                        <span class="header-menu-nav-section"> </span>
+                      </li>
+                      <li class="header-menu-nav-item">
+                        <a
+                          href="https://docs.google.com/spreadsheets/d/1A9DaedqusRYJEDBLaxipkrN0Dvs1Gm1X3T8YqKhvWfY"
+                          target="_blank"
+                          rel="noopener"
+                          class="header-menu-nav-link"
+                        >
+                          専用ベッド空き状況
+                        </a>
+                      </li>
+                    </ul>
+                  </nav>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </header>
+
+    <div class="l-wrap login">
+      <div class="l-container login-wrapper">
+        <div class="l-inner">
+          <img
+            src="./address-love-login_files/ADDress_logo-d1891753ad44517d325cbc66ec29fa6b.svg"
+            class="login-logo"
+            alt="ロゴ画像"
+          />
+
+          <form
+            class="form"
+            action="https://home.address.love/login"
+            accept-charset="UTF-8"
+            method="post"
+          >
+            <div class="mb-3">
+              <label for="user_email" class="form-label"
+                >会員ID（メールアドレス）</label
+              >
+              <input
+                class="form-control"
+                placeholder="メールアドレスを入力してください"
+                autocomplete="username"
+                type="text"
+                value=""
+                name="user[email]"
+                id="user_email"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="user_password" class="form-label">パスワード</label>
+              <input
+                class="form-control"
+                placeholder="パスワードを入力してください"
+                autocomplete="current-password"
+                type="password"
+                name="user[password]"
+                id="user_password"
+              />
+            </div>
+            <div class="mb-3 form-check">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                value="1"
+                checked="checked"
+                name="user[remember_me]"
+                id="user_remember_me"
+              />
+              <label class="form-check-label" for="user_remember_me"
+                >ログイン情報を記憶させる</label
+              >
+            </div>
+            <input
+              type="submit"
+              name="commit"
+              value="ログイン"
+              class="btn btn-primary btn-single login-btn"
+              data-disable-with="ログイン"
+            />
+
+            <a
+              class="btn btn-text login-btn-text"
+              href="https://home.address.love/register"
+              >メール会員登録がお済みでない方はこちら</a
+            >
+            <a
+              class="btn btn-text login-btn-text"
+              href="https://home.address.love/password/new"
+              >パスワードをお忘れの方はこちら</a
+            >
+            <a
+              class="btn btn-text login-btn-text"
+              href="https://home.address.love/activate/new"
+              >旧サイトからのアカウント有効化はこちら</a
+            >
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <div class="container overflow-hidden footer-wrapper">
+        <div class="row">
+          <div class="col-md-6 order-md-last">
+            <p class="pt-0">Facebookページにてイベント情報など配信中</p>
+            <div
+              class="fb-page fb_iframe_widget"
+              data-href="https://www.facebook.com/addresslove/"
+              data-tabs=""
+              data-width="450"
+              data-height="130"
+              data-small-header="false"
+              data-adapt-container-width="true"
+              data-hide-cover="false"
+              data-show-facepile="true"
+              data-lazy="true"
+              fb-xfbml-state="rendered"
+              fb-iframe-plugin-query="adapt_container_width=true&amp;app_id=2419072721556670&amp;container_width=539&amp;height=130&amp;hide_cover=false&amp;href=https%3A%2F%2Fwww.facebook.com%2Faddresslove%2F&amp;lazy=true&amp;locale=ja_JP&amp;sdk=joey&amp;show_facepile=true&amp;small_header=false&amp;tabs=&amp;width=450"
+            >
+              <span style="vertical-align: bottom; width: 450px; height: 130px"
+                ><iframe
+                  name="f341fe89c6e18b4"
+                  width="450px"
+                  height="130px"
+                  data-testid="fb:page Facebook Social Plugin"
+                  title="fb:page Facebook Social Plugin"
+                  frameborder="0"
+                  allowtransparency="true"
+                  allowfullscreen="true"
+                  scrolling="no"
+                  allow="encrypted-media"
+                  loading="lazy"
+                  src="./address-love-login_files/page.html"
+                  style="
+                    border: none;
+                    width: 450px;
+                    height: 130px;
+                    visibility: visible;
+                  "
+                  class=""
+                ></iframe
+              ></span>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <img
+              src="./address-love-login_files/ADDress_logo_white-604f741ffb2814dae7402b24b7b025f6.svg"
+              alt=""
+            />
+            <p class="mt-2">
+              運営会社：株式会社アドレス<br />
+              東京都千代田区平河町二丁目５番３号<br />
+              お問い合わせ：
+              <a
+                href="mailto:contact@address.love"
+                target="_blank"
+                rel="noopener noreferrer"
+                >contact@address.love</a
+              >
+            </p>
+
+            <div class="footer-media mt-1">
+              <a
+                href="https://twitter.com/ADDaddress"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <img
+                  src="./address-love-login_files/footer_tw-62fa0c7cb016bc6da39764b0f6d8458b.svg"
+                  alt=""
+                />
+              </a>
+              <a
+                href="https://www.facebook.com/addresslove/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <img
+                  src="./address-love-login_files/footer_fb-71033b5acdde7adaaeecd5723df348c4.svg"
+                  alt=""
+                />
+              </a>
+              <a
+                href="https://note.com/address"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <img
+                  src="./address-love-login_files/footer_note-ec14f75ca1d7be0b07dbecb7954a157d.svg"
+                  alt=""
+                />
+              </a>
+              <a
+                class="footer-media-history"
+                href="https://note.mu/address/n/n35bc93ea1536"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                メディア掲載履歴
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="row mt-2">
+          <hr />
+          <ul class="footer-legal d-flex align-content-start flex-wrap">
+            <li>
+              <a href="https://home.address.love/transaction-law"
+                >特定商取引法に基づく表記</a
+              >
+            </li>
+            <li>
+              <a
+                class="footer-agreement"
+                href="https://home.address.love/personal-info"
+                >個人情報保護方針</a
+              >
+            </li>
+            <li>
+              <a href="https://home.address.love/policy"
+                >プライバシーポリシー</a
+              >
+            </li>
+            <li>
+              <a class="footer-agreement" href="https://home.address.love/terms"
+                >利用規約</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </footer>
+    <div id="fb-root" class="fb_reset">
+      <div style="position: absolute; top: -10000px; width: 0px; height: 0px">
+        <div></div>
+      </div>
+    </div>
+  </body>
+</html>
