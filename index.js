@@ -22,7 +22,7 @@ const homeCardSelectors = {
   // image: "a > figure > div > img",
 }
 
-const homeSelectors = {
+const homeItemSelectors = {
   name: '#top > div:nth-child(1) > div.propertydetail__header > div.propertydetail-info > p:nth-child(2)',
   tag: '#top > div:nth-child(1) > div.propertydetail__header > div.propertydetail-info > p.propertydetail-info-tag',
   address:
@@ -52,15 +52,15 @@ const homeSelectors = {
   let homesJson
   fs.readFile('homes.json', 'utf8', (err, data) => {
     if (err) {
-      console.log('An error occurred so we will re-scrape homes', err)
+      console.log('An error occurred so we will re-scrape homes :x', err)
       // throw err;
     } else {
-      console.log('Loading homes.json from files')
-      homesJson = data
+      console.log('Loading homes.json from files :)')
+      homesJson = JSON.parse(data)
     }
   })
 
-  await page.waitForTimeout(5000) // small delay to wait for file to load
+  await page.waitForTimeout(4000) // small delay to wait for file to load
 
   if (!homesJson) {
     // scrape home cards
@@ -109,6 +109,32 @@ const homeSelectors = {
     console.log('Saving homes.json')
     fs.writeFileSync('homes.json', JSON.stringify(homesJson))
   }
+
+  // scrape home items
+  const homeItemsJson = []
+  for (const homeCard of homesJson) {
+    console.log(`Starting scraping home ${homeCard.title} with id ${homeCard.id}`)
+    const homeItemUrl = `${variables.domainUrl}${homeCard.urlPath.substring(1)}`
+    await page.goto(homeItemUrl)
+    const pageContent = await page.content()
+    const $ = cheerio.load(pageContent)
+    const locationUrl = $(homeItemSelectors.locationLink).attr('href');
+    const homeItemJson = Object.assign(homeCard, {
+      name: $(homeItemSelectors.name).text(),
+      tag: $(homeItemSelectors.tag).text(),
+      address: $(homeItemSelectors.address).text().replace('GoogleMap', '').trim(),
+      location: {
+        url: locationUrl,
+        latitude: parseFloat(locationUrl.split('?q=')[1].split(',')[0]),
+        longitude: parseFloat(locationUrl.split('?q=')[1].split(',')[1]),
+      },
+    });
+    homeItemsJson.push(homeItemJson);
+    console.log(`Done scraping home ${homeCard.title} with id ${homeCard.id}`)
+  }
+
+  console.log('Saving homes-with-location.json')
+  fs.writeFileSync('homes-with-location.json', JSON.stringify(homesJson))
 
   // logout
   await page.evaluate(() => document.querySelector('a[href="/logout"]').click())
