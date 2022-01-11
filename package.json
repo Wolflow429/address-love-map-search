@@ -4,7 +4,10 @@
   "description": "Map search for ADDress",
   "main": "index.js",
   "scripts": {
-    "test": "nyc ./node_modules/.bin/_mocha 'tests/**/*.ts'"
+    "test": "nyc ./node_modules/.bin/_mocha 'tests/**/*.ts'",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
   },
   "repository": {
     "type": "git",
@@ -29,10 +32,14 @@
     "@types/cheerio": "^0.22.30",
     "@types/node": "^16.11.11",
     "@types/puppeteer": "^5.4.4",
+    "@types/react": "^17.0.38",
     "chai": "^4.3.4",
     "mocha": "^9.1.3",
+    "next": "latest",
     "nyc": "^15.1.0",
     "prettier": "^2.5.0",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
     "ts-mockito": "^2.6.1",
     "ts-node": "^10.4.0",
     "tslint": "^6.1.3",
