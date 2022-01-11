@@ -36,6 +36,8 @@ Exiting scraper
 
 Run `npm run dev` and access `localhost:3000/map/address`
 
+![alt text](https://github.com/wolflow429/address-love-map-search/blob/main/map.png?raw=true)
+
 # Roadmap
 
 ✅ Fetch and store names, coordinates and basic information of each home<br/>
