@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/caionovalins/address-love-map-search#readme",
   "dependencies": {
+    "@react-google-maps/api": "^2.7.0",
     "cheerio": "^1.0.0-rc.10",
     "dotenv": "^10.0.0",
     "puppeteer": "^12.0.1"
